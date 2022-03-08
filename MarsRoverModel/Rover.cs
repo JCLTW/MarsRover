@@ -26,5 +26,25 @@ public class Rover
                     break;
             }
         }
+        if (instructions == "R")
+        {
+            switch (heading)
+            {
+                case "N":
+                    heading = "E";
+                    break;
+                case "E":
+                    heading = "S";
+                    break;
+                case "S":
+                    heading = "W";
+                    break;
+                case "W":
+                    heading = "N";
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
