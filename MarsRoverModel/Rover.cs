@@ -8,8 +8,23 @@ public class Rover
     public void explore()
     {
         if (instructions == "L") {
-            if (heading == "N")
-                heading = "W";
+            switch (heading)
+            {
+                case "N":
+                    heading = "W";
+                    break;
+                case "W":
+                    heading = "S";
+                    break;
+                case "S":
+                    heading = "E";
+                    break;
+                case "E":
+                    heading = "N";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
