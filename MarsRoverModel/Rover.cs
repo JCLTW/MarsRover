@@ -7,44 +7,49 @@ public class Rover
 
     public void explore()
     {
-        if (instructions == "L") {
-            switch (heading)
-            {
-                case "N":
-                    heading = "W";
-                    break;
-                case "W":
-                    heading = "S";
-                    break;
-                case "S":
-                    heading = "E";
-                    break;
-                case "E":
-                    heading = "N";
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (instructions == "R")
+        if (instructions == "L") SpinLeft();
+        if (instructions == "R") SpinRight();
+    }
+
+    private void SpinLeft()
+    {
+        switch (heading)
         {
-            switch (heading)
-            {
-                case "N":
-                    heading = "E";
-                    break;
-                case "E":
-                    heading = "S";
-                    break;
-                case "S":
-                    heading = "W";
-                    break;
-                case "W":
-                    heading = "N";
-                    break;
-                default:
-                    break;
-            }
+            case "N":
+                heading = "W";
+                break;
+            case "W":
+                heading = "S";
+                break;
+            case "S":
+                heading = "E";
+                break;
+            case "E":
+                heading = "N";
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SpinRight()
+    {
+        switch (heading)
+        {
+            case "N":
+                heading = "E";
+                break;
+            case "E":
+                heading = "S";
+                break;
+            case "S":
+                heading = "W";
+                break;
+            case "W":
+                heading = "N";
+                break;
+            default:
+                break;
         }
     }
 }
