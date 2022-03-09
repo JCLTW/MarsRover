@@ -1,4 +1,6 @@
 ﻿
+using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace MarsRoverTest
@@ -37,84 +39,38 @@ namespace MarsRoverTest
             Assert.Equal(headingExpect, rover.heading);
         }
 
-        [Fact]
-        public void should_move_forward_north_given_move_instruction() {
-            int coordinateX = 1;
-            int coordinateY = 1;
-            string headingInitial = "N";
-
+        [Theory]
+        [ClassData(typeof(MovingInstructionTestDataGenerator))]
+        public void should_return_expected_position_given_move_forward_instruction(
+            string headingInitial,
+            Coordinate coordinateInitial,
+            Coordinate coordinateExpect
+        )
+        {
             Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
             rover.heading = headingInitial;
-            rover.coordinate = coordinate;
+            rover.coordinate = coordinateInitial;
             rover.instructions = "M";
 
             rover.explore();
 
             Assert.Equal(headingInitial, rover.heading);
-            Assert.Equal(coordinateX, rover.coordinate.X);
-            Assert.Equal(coordinateY+1, rover.coordinate.Y);
+            Assert.Equal(coordinateExpect.X, rover.coordinate.X);
+            Assert.Equal(coordinateExpect.Y, rover.coordinate.Y);
         }
 
-
-        [Fact]
-        public void should_move_forward_west_given_move_instruction()
+        public class MovingInstructionTestDataGenerator : IEnumerable<object[]>
         {
-            int coordinateX = 1;
-            int coordinateY = 1;
-            string headingInitial = "W";
-
-            Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
-            rover.heading = headingInitial;
-            rover.coordinate = coordinate;
-            rover.instructions = "M";
-
-            rover.explore();
-
-            Assert.Equal(headingInitial, rover.heading);
-            Assert.Equal(coordinateX -1, rover.coordinate.X);
-            Assert.Equal(coordinateY, rover.coordinate.Y);
-        }
-
-        [Fact]
-        public void should_move_forward_south_given_move_instruction()
+            private readonly List<object[]> _data = new List<object[]>
         {
-            int coordinateX = 1;
-            int coordinateY = 1;
-            string headingInitial = "S";
+            new object[] {"N", new Coordinate(1, 1), new Coordinate(1, 2)},
+            new object[] {"E", new Coordinate(1, 1), new Coordinate(2, 1)},
+            new object[] {"W", new Coordinate(1, 1), new Coordinate(0, 1)},
+            new object[] {"S", new Coordinate(1, 1), new Coordinate(1, 0)},
+        };
 
-            Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
-            rover.heading = headingInitial;
-            rover.coordinate = coordinate;
-            rover.instructions = "M";
-
-            rover.explore();
-
-            Assert.Equal(headingInitial, rover.heading);
-            Assert.Equal(coordinateX, rover.coordinate.X);
-            Assert.Equal(coordinateY - 1, rover.coordinate.Y);
-        }
-
-        [Fact]
-        public void should_move_forward_east_given_move_instruction()
-        {
-            int coordinateX = 1;
-            int coordinateY = 1;
-            string headingInitial = "E";
-
-            Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
-            rover.heading = headingInitial;
-            rover.coordinate = coordinate;
-            rover.instructions = "M";
-
-            rover.explore();
-
-            Assert.Equal(headingInitial, rover.heading);
-            Assert.Equal(coordinateX + 1 , rover.coordinate.X);
-            Assert.Equal(coordinateY, rover.coordinate.Y);
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
     }
 }
