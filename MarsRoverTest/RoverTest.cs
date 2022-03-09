@@ -79,6 +79,26 @@ namespace MarsRoverTest
             Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
         }
 
+        [Fact]
+        public void should_return_expected_position_given_multiple_instructions() {
+
+            Rover rover = new Rover();
+            Coordinate initialCordinate = new Coordinate(1, 1);
+            string initalHeading = "N";
+            rover.coordinate = initialCordinate;
+            rover.heading = initalHeading;
+            rover.instructions = "LL";
+
+            string expectedHeading = "S";
+            Coordinate expectedCoordinate = new Coordinate(1, 1);
+
+            rover.explore();
+
+            Assert.Equal(expectedHeading, rover.heading);
+            Assert.Equal(expectedCoordinate.X, rover.coordinate.X);
+            Assert.Equal(expectedCoordinate.X, rover.coordinate.Y);
+        }
+
         public class MovingInstructionTestDataGenerator : IEnumerable<object[]>
         {
             private readonly List<object[]> _data = new List<object[]>

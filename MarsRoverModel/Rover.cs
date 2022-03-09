@@ -9,10 +9,12 @@ public class Rover
 
     public void explore()
     {
-        if (instructions == "L") SpinLeft();
-        if (instructions == "R") SpinRight();
-        if (instructions == "M") MoveForward();
-   
+        foreach (char instruction in instructions)
+        {
+            if (instruction == 'L') SpinLeft();
+            if (instruction == 'R') SpinRight();
+            if (instruction == 'M') MoveForward();
+        }
     }
 
     private void MoveForward()
