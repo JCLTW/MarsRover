@@ -47,7 +47,9 @@ namespace MarsRoverTest
             Coordinate coordinateExpect
         )
         {
+            Coordinate coordinatePlateau = new Coordinate(5, 5);
             Rover rover = new Rover();
+            rover.coordinatePlateau = coordinatePlateau;
             rover.heading = headingInitial;
             rover.coordinate = coordinateInitial;
             rover.instructions = "M";
@@ -60,57 +62,22 @@ namespace MarsRoverTest
         }
 
 
-        [Fact]
-        public void should_return_out_of_edge_error_given_position_on_the_top_of_plateau_heading_north_and_move_forward() {
-            Rover rover = new Rover();
-            Coordinate coordinatePlateau = new Coordinate(5, 5);
-            rover.coordinatePlateau = coordinatePlateau;
-            rover.heading = "N";
-            rover.coordinate = new Coordinate(5, 5);
-            rover.instructions = "M";
-
-            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
-        }
-
-        [Fact]
-        public void should_return_out_of_edge_error_given_position_on_the_right_of_plateau_heading_east_and_move_forward()
+        [Theory]
+        [ClassData(typeof(MovingOutOfPlateauEdgeTestDataGenerator))]
+        public void should_return_out_of_edge_error_given_position_on_the_edge_of_plateau_and_move_forward(
+            string headingInitial,
+            Coordinate coordinatesInitial)
         {
-            Rover rover = new Rover();
+
             Coordinate coordinatePlateau = new Coordinate(5, 5);
+            Rover rover = new Rover();
             rover.coordinatePlateau = coordinatePlateau;
-            rover.heading = "E";
-            rover.coordinate = new Coordinate(5, 5);
+            rover.heading = headingInitial;
+            rover.coordinate = coordinatesInitial;
             rover.instructions = "M";
 
             Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
         }
-
-        [Fact]
-        public void should_return_out_of_edge_error_given_position_on_the_left_of_plateau_heading_west_and_move_forward()
-        {
-            Rover rover = new Rover();
-            Coordinate coordinatePlateau = new Coordinate(5, 5);
-            rover.coordinatePlateau = coordinatePlateau;
-            rover.heading = "W";
-            rover.coordinate = new Coordinate(0, 0);
-            rover.instructions = "M";
-
-            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
-        }
-
-        [Fact]
-        public void should_return_out_of_edge_error_given_position_on_the_bottom_of_plateau_heading_south_and_move_forward()
-        {
-            Rover rover = new Rover();
-            Coordinate coordinatePlateau = new Coordinate(5, 5);
-            rover.coordinatePlateau = coordinatePlateau;
-            rover.heading = "S";
-            rover.coordinate = new Coordinate(0, 0);
-            rover.instructions = "M";
-
-            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
-        }
-
 
         public class MovingInstructionTestDataGenerator : IEnumerable<object[]>
         {
@@ -120,6 +87,20 @@ namespace MarsRoverTest
             new object[] {"E", new Coordinate(1, 1), new Coordinate(2, 1)},
             new object[] {"W", new Coordinate(1, 1), new Coordinate(0, 1)},
             new object[] {"S", new Coordinate(1, 1), new Coordinate(1, 0)},
+        };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+
+        public class MovingOutOfPlateauEdgeTestDataGenerator : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] {"N", new Coordinate(0, 5)},
+            new object[] {"E", new Coordinate(5, 0)},
+            new object[] {"W", new Coordinate(0, 0)},
+            new object[] {"S", new Coordinate(0, 0)},
         };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
