@@ -5,6 +5,7 @@ public class Rover
     public string heading { get; set; }
     public string instructions { get; set; }
     public Coordinate coordinate { get; set; }
+    public Coordinate coordinatePlateau { get; set; }
 
     public void explore()
     {
@@ -19,6 +20,7 @@ public class Rover
         switch (heading)
         {
             case "N":
+                if (coordinate.Y == coordinatePlateau.Y) throw new OutOfPlateauEdgeException();
                 coordinate.Y += 1;
                 break;
             case "W":
