@@ -10,23 +10,28 @@ public class Rover
     {
         if (instructions == "L") SpinLeft();
         if (instructions == "R") SpinRight();
-        if (instructions == "M") {
-            switch (heading) {
-                case "N":
-                    coordinate.Y += 1;
-                    break;
-                case "W":
-                    coordinate.X -= 1;
-                    break;
-                case "S":
-                    coordinate.Y -= 1;
-                    break;
-                case "E":
-                    coordinate.X += 1;
-                    break;
-                default:
-                    break;
-            }
+        if (instructions == "M") MoveForward();
+   
+    }
+
+    private void MoveForward()
+    {
+        switch (heading)
+        {
+            case "N":
+                coordinate.Y += 1;
+                break;
+            case "W":
+                coordinate.X -= 1;
+                break;
+            case "S":
+                coordinate.Y -= 1;
+                break;
+            case "E":
+                coordinate.X += 1;
+                break;
+            default:
+                break;
         }
     }
 
