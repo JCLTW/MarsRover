@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Rover
 {
@@ -15,6 +16,35 @@ public class Rover
             if (instruction == 'R') SpinRight();
             if (instruction == 'M') MoveForward();
         }
+    }
+
+    public static Rover[] CommandParsing(string commands)
+    {
+        string[] commandLines = commands.Split('\n');
+        string[] plateauTopRightInfo = commandLines[0].Split(' ');
+        int plateauCoordinateX = Int32.Parse(plateauTopRightInfo[0]);
+        int plateauCoordinateY = Int32.Parse(plateauTopRightInfo[1]);
+        Coordinate coordinatePlateau = new Coordinate(plateauCoordinateX, plateauCoordinateY);
+
+        List<Rover> rovers = new List<Rover>();
+        for (int i = 1; i < commandLines.Length; i += 2)
+        {
+            string position = commandLines[i];
+            string instructions = commandLines[i + 1];
+            string[] roverPositionInfo = position.Split(' ');
+            int coordinateX = Int32.Parse(roverPositionInfo[0]);
+            int coordinateY = Int32.Parse(roverPositionInfo[1]);
+            Coordinate coordinates = new Coordinate(coordinateX, coordinateY);
+            string heading = roverPositionInfo[2];
+
+            Rover rover = new Rover();
+            rover.heading = heading;
+            rover.coordinate = coordinates;
+            rover.coordinatePlateau = coordinatePlateau;
+            rover.instructions = instructions;
+            rovers.Add(rover);
+        }
+        return rovers.ToArray();
     }
 
     private void MoveForward()

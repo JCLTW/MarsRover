@@ -5,7 +5,7 @@ using Xunit;
 
 namespace MarsRoverTest
 {
-    public class RoverTest
+    public class RoverExploreTest
     {
         [Theory]
         [InlineData("N", "W")]
