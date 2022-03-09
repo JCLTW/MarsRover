@@ -24,12 +24,15 @@ public class Rover
                 coordinate.Y += 1;
                 break;
             case "W":
+                if (coordinate.X == 0) throw new OutOfPlateauEdgeException();
                 coordinate.X -= 1;
                 break;
             case "S":
+                if (coordinate.Y == 0) throw new OutOfPlateauEdgeException();
                 coordinate.Y -= 1;
                 break;
             case "E":
+                if (coordinate.X == coordinatePlateau.X) throw new OutOfPlateauEdgeException();
                 coordinate.X += 1;
                 break;
             default:

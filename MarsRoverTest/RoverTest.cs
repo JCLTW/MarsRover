@@ -59,13 +59,53 @@ namespace MarsRoverTest
             Assert.Equal(coordinateExpect.Y, rover.coordinate.Y);
         }
 
+
         [Fact]
-        public void should_return_out_of_edge_error_given_position_ont_the_top_of_plateau_heading_north_and_move_forward() {
+        public void should_return_out_of_edge_error_given_position_on_the_top_of_plateau_heading_north_and_move_forward() {
             Rover rover = new Rover();
             Coordinate coordinatePlateau = new Coordinate(5, 5);
             rover.coordinatePlateau = coordinatePlateau;
             rover.heading = "N";
             rover.coordinate = new Coordinate(5, 5);
+            rover.instructions = "M";
+
+            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
+        }
+
+        [Fact]
+        public void should_return_out_of_edge_error_given_position_on_the_right_of_plateau_heading_east_and_move_forward()
+        {
+            Rover rover = new Rover();
+            Coordinate coordinatePlateau = new Coordinate(5, 5);
+            rover.coordinatePlateau = coordinatePlateau;
+            rover.heading = "E";
+            rover.coordinate = new Coordinate(5, 5);
+            rover.instructions = "M";
+
+            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
+        }
+
+        [Fact]
+        public void should_return_out_of_edge_error_given_position_on_the_left_of_plateau_heading_west_and_move_forward()
+        {
+            Rover rover = new Rover();
+            Coordinate coordinatePlateau = new Coordinate(5, 5);
+            rover.coordinatePlateau = coordinatePlateau;
+            rover.heading = "W";
+            rover.coordinate = new Coordinate(0, 0);
+            rover.instructions = "M";
+
+            Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
+        }
+
+        [Fact]
+        public void should_return_out_of_edge_error_given_position_on_the_bottom_of_plateau_heading_south_and_move_forward()
+        {
+            Rover rover = new Rover();
+            Coordinate coordinatePlateau = new Coordinate(5, 5);
+            rover.coordinatePlateau = coordinatePlateau;
+            rover.heading = "S";
+            rover.coordinate = new Coordinate(0, 0);
             rover.instructions = "M";
 
             Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
