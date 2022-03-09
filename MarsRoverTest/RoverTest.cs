@@ -44,10 +44,8 @@ namespace MarsRoverTest
             string headingInitial = "N";
 
             Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate();
+            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
             rover.heading = headingInitial;
-            coordinate.X = coordinateX;
-            coordinate.Y = coordinateY;
             rover.coordinate = coordinate;
             rover.instructions = "M";
 
@@ -67,10 +65,8 @@ namespace MarsRoverTest
             string headingInitial = "W";
 
             Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate();
+            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
             rover.heading = headingInitial;
-            coordinate.X = coordinateX;
-            coordinate.Y = coordinateY;
             rover.coordinate = coordinate;
             rover.instructions = "M";
 
@@ -89,10 +85,8 @@ namespace MarsRoverTest
             string headingInitial = "S";
 
             Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate();
+            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
             rover.heading = headingInitial;
-            coordinate.X = coordinateX;
-            coordinate.Y = coordinateY;
             rover.coordinate = coordinate;
             rover.instructions = "M";
 
@@ -111,10 +105,8 @@ namespace MarsRoverTest
             string headingInitial = "E";
 
             Rover rover = new Rover();
-            Coordinate coordinate = new Coordinate();
+            Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
             rover.heading = headingInitial;
-            coordinate.X = coordinateX;
-            coordinate.Y = coordinateY;
             rover.coordinate = coordinate;
             rover.instructions = "M";
 
