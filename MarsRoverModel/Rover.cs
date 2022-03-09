@@ -15,6 +15,15 @@ public class Rover
                 case "N":
                     coordinate.Y += 1;
                     break;
+                case "W":
+                    coordinate.X -= 1;
+                    break;
+                case "S":
+                    coordinate.Y -= 1;
+                    break;
+                case "E":
+                    coordinate.X += 1;
+                    break;
                 default:
                     break;
             }
