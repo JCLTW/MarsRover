@@ -4,11 +4,21 @@ public class Rover
 {
     public string heading { get; set; }
     public string instructions { get; set; }
+    public Coordinate coordinate { get; set; }
 
     public void explore()
     {
         if (instructions == "L") SpinLeft();
         if (instructions == "R") SpinRight();
+        if (instructions == "M") {
+            switch (heading) {
+                case "N":
+                    coordinate.Y += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void SpinLeft()
