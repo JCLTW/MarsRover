@@ -79,24 +79,27 @@ namespace MarsRoverTest
             Assert.Throws<OutOfPlateauEdgeException>(() => rover.explore());
         }
 
-        [Fact]
-        public void should_return_expected_position_given_multiple_instructions() {
-
+        [Theory]
+        [ClassData(typeof(MultipleInstructionsTestDataGenerator))]
+        public void should_return_expected_position_given_multiple_instructions(
+            string instructions,
+            string initialHeading,
+            Coordinate initialCoordinate,
+            string expectedHeading,
+            Coordinate expectedCoordinate)
+        {
             Rover rover = new Rover();
-            Coordinate initialCordinate = new Coordinate(1, 1);
-            string initalHeading = "N";
-            rover.coordinate = initialCordinate;
-            rover.heading = initalHeading;
-            rover.instructions = "LL";
-
-            string expectedHeading = "S";
-            Coordinate expectedCoordinate = new Coordinate(1, 1);
+            Coordinate coordinatePlateau = new Coordinate(5, 5);
+            rover.coordinatePlateau = coordinatePlateau;
+            rover.coordinate = initialCoordinate;
+            rover.heading = initialHeading;
+            rover.instructions = instructions;
 
             rover.explore();
 
             Assert.Equal(expectedHeading, rover.heading);
             Assert.Equal(expectedCoordinate.X, rover.coordinate.X);
-            Assert.Equal(expectedCoordinate.X, rover.coordinate.Y);
+            Assert.Equal(expectedCoordinate.Y, rover.coordinate.Y);
         }
 
         public class MovingInstructionTestDataGenerator : IEnumerable<object[]>
@@ -121,6 +124,20 @@ namespace MarsRoverTest
             new object[] {"E", new Coordinate(5, 0)},
             new object[] {"W", new Coordinate(0, 0)},
             new object[] {"S", new Coordinate(0, 0)},
+        };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+
+        public class MultipleInstructionsTestDataGenerator : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] {"LL", "N", new Coordinate(1, 1), "S", new Coordinate(1, 1)},
+            new object[] {"RR", "N", new Coordinate(1, 1), "S", new Coordinate(1, 1)},
+            new object[] {"MM", "N", new Coordinate(1, 1), "N", new Coordinate(1, 3)},
+            new object[] {"LMRM", "N", new Coordinate(1, 1), "N", new Coordinate(0, 2)},
         };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
